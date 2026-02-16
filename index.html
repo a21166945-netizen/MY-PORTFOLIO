@@ -3,317 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdul Rehman | Ultra Elite Dev</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;700&family=Clicker+Script&display=swap" rel="stylesheet">
+    <title>Abdul Rehman | The Elite Coder</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600;700&family=Clicker+Script&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         /* ======================== 
-           ULTRA CSS VARIABLES 
+           ROOT & THEME ENGINE 
         ======================== */
         :root {
-            --bg-black-900: #090909;
-            --bg-black-100: #151515;
-            --bg-black-50: #2b2b2b;
-            --text-black-900: #ffffff;
-            --text-black-700: #bbbbbb;
-            --skin-color: #ec1839; /* Initial Theme */
+            --bg-900: #050505;
+            --bg-100: #121212;
+            --bg-50: #1f1f1f;
+            --text-900: #ffffff;
+            --text-700: #cccccc;
+            --skin-color: #ec1839; /* Default Red */
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* ======================== 
-           BASE STYLES 
+           CORE RESET 
         ======================== */
-        * { margin: 0; padding: 0; outline: none; text-decoration: none; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; text-decoration: none; }
         body { 
-            line-height: 1.5; 
             font-family: 'Poppins', sans-serif; 
-            background-color: var(--bg-black-900); 
-            color: var(--text-black-900);
+            background: var(--bg-900); 
+            color: var(--text-900);
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
-        ul { list-style: none; }
-        .section { min-height: 100vh; display: block; padding: 0 30px; transition: all 0.3s ease; }
-        .main-content { padding-left: 270px; }
-        .container { max-width: 1200px; width: 100%; margin: auto; }
-        .row { display: flex; flex-wrap: wrap; margin-left: -15px; margin-right: -15px; }
-        .pad-15 { padding-left: 15px; padding-right: 15px; }
+
+        /* LIVE BACKGROUND ANIMATION (Stars) */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
         /* ======================== 
-           SIDEBAR / ASIDE 
+           ASIDE (SIDEBAR) 
         ======================== */
-        .aside { 
-            width: 270px; background: var(--bg-black-100); 
-            position: fixed; left: 0; top: 0; height: 100%; 
-            border-right: 1px solid var(--bg-black-50); 
-            padding: 30px; display: flex; flex-direction: column; 
-            z-index: 10; 
+        .aside {
+            width: 270px; background: var(--bg-100);
+            position: fixed; left: 0; top: 0; height: 100%;
+            border-right: 1px solid var(--bg-50);
+            padding: 40px 30px; display: flex; flex-direction: column;
+            z-index: 100; transition: var(--transition);
         }
-        .aside .logo { padding: 30px 0; }
+        .aside .logo { margin-bottom: 60px; }
         .aside .logo a { 
-            font-family: 'Orbitron', sans-serif; font-size: 25px; 
-            font-weight: 700; color: var(--text-black-900); 
-            letter-spacing: 2px;
+            font-family: 'Orbitron'; font-size: 28px; font-weight: 700; 
+            color: var(--text-900); letter-spacing: 2px;
         }
-        .aside .logo a span { color: var(--skin-color); }
-        
-        .aside .nav { list-style: none; margin: 50px 0; }
-        .aside .nav li { margin-bottom: 25px; }
-        .aside .nav li a { 
-            font-size: 16px; font-weight: 600; display: block; 
-            color: var(--text-black-700); padding: 10px 15px; 
-            border-radius: 10px; transition: 0.3s;
-            border-bottom: 1px solid transparent;
+        .aside .logo a span { color: var(--skin-color); text-shadow: 0 0 10px var(--skin-color); }
+
+        .nav li { margin-bottom: 25px; }
+        .nav li a {
+            font-size: 16px; font-weight: 600; color: var(--text-700);
+            padding: 12px 20px; border-radius: 12px; display: flex; align-items: center;
+            transition: var(--transition); border: 1px solid transparent;
         }
-        .aside .nav li a i { margin-right: 15px; width: 20px; }
-        .aside .nav li a:hover, .aside .nav li a.active { 
-            color: var(--skin-color); 
-            background: rgba(255,255,255,0.05);
-            border-bottom: 1px solid var(--skin-color);
+        .nav li a i { margin-right: 15px; font-size: 18px; }
+        .nav li a:hover, .nav li a.active {
+            color: var(--skin-color); background: rgba(255,255,255,0.03);
+            border: 1px solid var(--skin-color); transform: translateX(5px);
         }
 
         /* ======================== 
-           HOME SECTION 
+           MAIN CONTENT AREA 
         ======================== */
-        .home { min-height: 100vh; display: flex; align-items: center; }
-        .home-info { flex: 0 0 60%; max-width: 60%; }
-        .home-img { flex: 0 0 40%; max-width: 40%; text-align: center; }
-        
-        .home-img .img-box {
-            position: relative; width: 350px; height: 350px; margin: auto;
-            border: 10px solid var(--skin-color); border-radius: 50%;
-            overflow: hidden; box-shadow: 0 0 50px rgba(236, 24, 57, 0.2);
-        }
-        .home-img img { width: 100%; height: 100%; object-fit: cover; }
+        .main-content { padding-left: 270px; }
+        .section { min-height: 100vh; padding: 80px 10%; display: flex; flex-direction: column; justify-content: center; }
+        .container { max-width: 1200px; margin: auto; }
 
-        .hello { font-size: 28px; margin: 15px 0; }
-        .hello span { font-family: 'Clicker Script', cursive; font-size: 40px; color: var(--skin-color); }
-        .my-profession { font-size: 35px; font-weight: 700; margin: 15px 0; }
-        .typing { color: var(--skin-color); text-shadow: 0 0 10px rgba(236, 24, 57, 0.3); }
-        
-        .home-info p { font-size: 18px; color: var(--text-black-700); margin-bottom: 30px; }
-        .btn { 
-            padding: 15px 40px; background: var(--skin-color); color: #fff; 
-            border-radius: 50px; font-weight: 600; cursor: pointer; border: none;
-            transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        /* HERO SECTION */
+        .home-row { display: flex; align-items: center; justify-content: space-between; gap: 50px; }
+        .home-info h3 { font-size: 30px; margin-bottom: 10px; }
+        .home-info h3 span { font-family: 'Clicker Script'; color: var(--skin-color); font-size: 45px; }
+        .home-info .typing-text { font-size: 38px; font-weight: 700; margin-bottom: 20px; }
+        .typing { color: var(--skin-color); text-shadow: 0 0 15px var(--skin-color); }
+        .home-info p { font-size: 18px; color: var(--text-700); line-height: 1.8; margin-bottom: 35px; max-width: 600px; }
+
+        .hero-img {
+            width: 380px; height: 380px; border-radius: 50%;
+            border: 10px solid var(--bg-50); overflow: hidden;
+            box-shadow: 0 0 50px var(--skin-color); position: relative;
         }
-        .btn:hover { transform: translateY(-5px); box-shadow: 0 15px 30px var(--skin-color); }
+        .hero-img img { width: 100%; height: 100%; object-fit: cover; }
 
         /* ======================== 
-           ABOUT & SKILL BARS 
+           EXPANDABLE SKILLS (Accordion) 
         ======================== */
-        .section-title { flex: 0 0 100%; max-width: 100%; margin-bottom: 60px; padding: 60px 0 0; }
-        .section-title h2 { font-size: 40px; font-weight: 700; position: relative; }
-        .section-title h2::before { content: ''; height: 4px; width: 50px; background: var(--skin-color); position: absolute; top: 100%; left: 0; }
-
-        .about-content { flex: 0 0 100%; max-width: 100%; }
-        .personal-info { flex: 0 0 60%; max-width: 60%; }
-        .skills { flex: 0 0 40%; max-width: 40%; }
-        
-        .info-item { flex: 0 0 50%; max-width: 50%; margin-bottom: 15px; }
-        .info-item p { font-weight: 600; padding: 10px 0; border-bottom: 1px solid var(--bg-black-50); }
-        .info-item p span { font-weight: 400; color: var(--text-black-700); margin-left: 10px; }
-
-        /* ULTRA PROGRESS BARS */
-        .skill-item { margin-bottom: 30px; }
-        .skill-item h5 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
-        .skill-item .progress { background: var(--bg-black-50); height: 10px; border-radius: 10px; width: 100%; position: relative; }
-        .skill-item .progress-in { position: absolute; left: 0; top: 0; height: 100%; border-radius: 10px; background: var(--skin-color); transition: 1.5s ease-in-out; }
-        .skill-percent { position: absolute; right: 0; top: -30px; color: var(--skin-color); font-weight: 600; }
+        .skills-container { margin-top: 50px; }
+        .skill-box {
+            background: var(--bg-100); border: 1px solid var(--bg-50);
+            border-radius: 15px; margin-bottom: 20px; overflow: hidden;
+            transition: var(--transition); cursor: pointer;
+        }
+        .skill-header {
+            padding: 25px 30px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .skill-header h3 { font-size: 20px; display: flex; align-items: center; gap: 15px; }
+        .skill-header i.arrow { transition: 0.3s; }
+        .skill-content { 
+            max-height: 0; padding: 0 30px; color: var(--text-700); 
+            transition: all 0.5s cubic-bezier(0,1,0,1); 
+        }
+        .skill-box.active .skill-content { max-height: 1000px; padding: 20px 30px; }
+        .skill-box.active .arrow { transform: rotate(180deg); color: var(--skin-color); }
+        .skill-box:hover { border-color: var(--skin-color); }
 
         /* ======================== 
-           STYLE SWITCHER (LIVE)
+           CONTACT SECTION (PREMIUM) 
         ======================== */
-        .style-switcher { 
-            position: fixed; right: 0; top: 80px; padding: 20px; 
-            width: 220px; background: var(--bg-black-100); 
-            border: 1px solid var(--bg-black-50); 
-            transform: translateX(100%); transition: 0.4s; z-index: 101; 
+        .contact-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; margin-top: 50px;
+        }
+        .contact-card {
+            background: var(--bg-100); padding: 40px; border-radius: 20px;
+            text-align: center; border-bottom: 5px solid var(--bg-50);
+            transition: var(--transition);
+        }
+        .contact-card:hover { transform: translateY(-10px); border-color: var(--skin-color); }
+        .contact-card i { font-size: 40px; color: var(--skin-color); margin-bottom: 20px; }
+        .contact-card h4 { font-size: 22px; margin-bottom: 10px; }
+        .contact-card p { color: var(--text-700); font-size: 16px; margin-bottom: 20px; }
+        .contact-link {
+            padding: 10px 25px; background: var(--skin-color); color: #fff;
+            border-radius: 30px; font-weight: 600; display: inline-block;
+        }
+
+        /* ======================== 
+           THEME SWITCHER 
+        ======================== */
+        .switcher {
+            position: fixed; right: 0; top: 100px; background: var(--bg-100);
+            padding: 15px; border: 1px solid var(--bg-50); z-index: 1000;
+            border-radius: 10px 0 0 10px; transform: translateX(100%); transition: 0.3s;
+        }
+        .switcher.open { transform: translateX(0); }
+        .s-icon {
+            position: absolute; right: 100%; top: 0; width: 45px; height: 45px;
+            background: var(--bg-100); border: 1px solid var(--bg-50);
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
             border-radius: 10px 0 0 10px;
         }
-        .style-switcher.open { transform: translateX(0); }
-        .style-switcher .s-icon { 
-            position: absolute; height: 45px; width: 45px; 
-            text-align: center; font-size: 22px; 
-            background: var(--bg-black-100); color: var(--text-black-900); 
-            right: 100%; top: 0; cursor: pointer; 
-            border: 1px solid var(--bg-black-50); 
-            display: flex; align-items: center; justify-content: center; 
-            border-radius: 50% 0 0 50%;
-        }
-        .style-switcher h4 { margin-bottom: 15px; border-bottom: 1px solid var(--bg-black-50); padding-bottom: 5px; }
-        .colors { display: flex; flex-wrap: wrap; gap: 10px; }
-        .colors span { height: 30px; width: 30px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
-        .colors span:hover { transform: scale(1.2); }
-
-        /* ======================== 
-           CONTACT CARDS 
-        ======================== */
-        .contact-info-item { flex: 0 0 33.33%; max-width: 33.33%; text-align: center; margin-bottom: 40px; }
-        .contact-info-item .icon { font-size: 30px; color: var(--skin-color); margin-bottom: 15px; }
-        .contact-info-item h4 { font-size: 20px; margin-bottom: 5px; }
-        .contact-info-item p { color: var(--text-black-700); }
+        .color-list { display: grid; grid-template-columns: repeat(2, 30px); gap: 10px; }
+        .color-list span { height: 30px; width: 30px; border-radius: 50%; cursor: pointer; }
 
         /* Responsive */
         @media (max-width: 1199px) {
             .aside { left: -270px; }
-            .main-content { padding-left: 0; }
             .aside.open { left: 0; }
-            .home-info { flex: 0 0 100%; max-width: 100%; text-align: center; }
-            .home-img { display: none; }
+            .main-content { padding-left: 0; }
+            .home-row { flex-direction: column-reverse; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
+    <canvas id="bg-canvas"></canvas>
 
-        <aside class="aside">
-            <div class="logo">
-                <a href="tel:031333772232"><span>github</span>.io</a>
-            </div>
-            <ul class="nav">
-                <li><a href="#home" class="active"><i class="fa fa-home"></i> Home</a></li>
-                <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
-                <li><a href="#portfolio"><i class="fa fa-briefcase"></i> Portfolio</a></li>
-                <li><a href="#contact"><i class="fa fa-comments"></i> Contact</a></li>
-            </ul>
-        </aside>
-
-        <div class="main-content">
-            
-            <section class="home section" id="home">
-                <div class="container">
-                    <div class="row">
-                        <div class="home-info pad-15" data-aos="fade-up">
-                            <h3 class="hello">Hello, my name is <span>Abdul Rehman</span></h3>
-                            <h3 class="my-profession">I'm a <span class="typing"></span></h3>
-                            <p>I am a Professional Developer based in Hyderabad. Specialized in building ultra-responsive web applications and high-level automation systems.</p>
-                            <a href="tel:031333772232" class="btn">Hire Me Now</a>
-                        </div>
-                        <div class="home-img pad-15" data-aos="zoom-in">
-                            <div class="img-box">
-                                <img src="DP.jpg" alt="Abdul Rehman">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="about section" id="about">
-                <div class="container">
-                    <div class="row">
-                        <div class="section-title pad-15"><h2>About Me</h2></div>
-                    </div>
-                    <div class="row">
-                        <div class="about-content pad-15">
-                            <div class="row">
-                                <div class="about-text pad-15" data-aos="fade-right">
-                                    <h3>I'm Abdul Rehman and <span>Professional Developer</span></h3>
-                                    <p>I am a 9th-grade student who codes like a pro. I turn ideas into reality through clean, efficient code. My expertise includes modern UI design and backend logic.</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="personal-info pad-15" data-aos="fade-up">
-                                    <div class="row">
-                                        <div class="info-item pad-15"><p>City : <span>Hyderabad</span></p></div>
-                                        <div class="info-item pad-15"><p>Email : <span>a21166945@gmail.com</span></p></div>
-                                        <div class="info-item pad-15"><p>Phone : <span>0313 33772232</span></p></div>
-                                        <div class="info-item pad-15"><p>Website : <span>github.io</span></p></div>
-                                    </div>
-                                </div>
-                                <div class="skills pad-15" data-aos="fade-left">
-                                    <div class="row">
-                                        <div class="skill-item pad-15">
-                                            <h5>HTML/CSS</h5>
-                                            <div class="progress"><div class="progress-in" style="width: 95%;"></div><div class="skill-percent">95%</div></div>
-                                        </div>
-                                        <div class="skill-item pad-15">
-                                            <h5>Python</h5>
-                                            <div class="progress"><div class="progress-in" style="width: 88%;"></div><div class="skill-percent">88%</div></div>
-                                        </div>
-                                        <div class="skill-item pad-15">
-                                            <h5>JavaScript</h5>
-                                            <div class="progress"><div class="progress-in" style="width: 80%;"></div><div class="skill-percent">80%</div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="contact section" id="contact">
-                <div class="container">
-                    <div class="row">
-                        <div class="section-title pad-15"><h2>Contact Me</h2></div>
-                    </div>
-                    <div class="row">
-                        <div class="contact-info-item pad-15" data-aos="flip-left">
-                            <div class="icon"><i class="fa fa-phone"></i></div>
-                            <h4>Call Me</h4><p>0313 33772232</p>
-                        </div>
-                        <div class="contact-info-item pad-15" data-aos="flip-left" data-aos-delay="200">
-                            <div class="icon"><i class="fab fa-whatsapp"></i></div>
-                            <h4>WhatsApp</h4><p>0313 33772232</p>
-                        </div>
-                        <div class="contact-info-item pad-15" data-aos="flip-left" data-aos-delay="400">
-                            <div class="icon"><i class="fa fa-envelope"></i></div>
-                            <h4>Email</h4><p>a21166945@gmail.com</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <aside class="aside">
+        <div class="logo">
+            <a href="tel:031333772232"><span>github</span>.io</a>
         </div>
-    </div>
+        <ul class="nav">
+            <li><a href="#home" class="active"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
+            <li><a href="#skills"><i class="fa fa-code"></i> Skills</a></li>
+            <li><a href="#contact"><i class="fa fa-envelope"></i> Contact</a></li>
+        </ul>
+    </aside>
 
-    <div class="style-switcher">
-        <div class="s-icon style-toggler"><i class="fas fa-cog fa-spin"></i></div>
-        <h4>Theme Colors</h4>
-        <div class="colors">
+    <main class="main-content">
+        
+        <section class="home section" id="home">
+            <div class="container">
+                <div class="home-row">
+                    <div class="home-info" data-aos="fade-right">
+                        <h3>Hello, I am <span>Abdul Rehman</span></h3>
+                        <div class="typing-text">I am a <span class="typing"></span></div>
+                        <p>A high-performance developer from Hyderabad. I build ultra-modern websites with a focus on neon design and elite user experience.</p>
+                        <a href="tel:031333772232" class="contact-link">Get Started</a>
+                    </div>
+                    <div class="hero-img" data-aos="zoom-in">
+                        <img src="DP.jpg" alt="Abdul Rehman">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about section" id="about">
+            <div class="container" data-aos="fade-up">
+                <h2 style="font-family: 'Orbitron'; font-size: 40px; margin-bottom: 30px;">ABOUT <span style="color: var(--skin-color);">ME</span></h2>
+                <p style="font-size: 18px; color: var(--text-700); line-height: 2; margin-bottom: 40px;">
+                    Started my journey in the 9th grade, and now mastering the art of the web. I don't just write code; I craft digital experiences. My specialization lies in creating high-end portfolios and automation tools using Python.
+                </p>
+                <div style="display: flex; gap: 50px; flex-wrap: wrap;">
+                    <div><h4 style="color: var(--skin-color);">Email:</h4><p>a21166945@gmail.com</p></div>
+                    <div><h4 style="color: var(--skin-color);">City:</h4><p>Hyderabad, PK</p></div>
+                    <div><h4 style="color: var(--skin-color);">Phone:</h4><p>+92 313 33772232</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills section" id="skills">
+            <div class="container">
+                <h2 style="font-family: 'Orbitron'; font-size: 40px; margin-bottom: 40px;">TECH <span style="color: var(--skin-color);">STACK</span></h2>
+                
+                <div class="skills-container">
+                    <div class="skill-box" onclick="toggleSkill(this)" data-aos="fade-up">
+                        <div class="skill-header">
+                            <h3><i class="fab fa-html5"></i> Web Development (HTML/CSS/JS)</h3>
+                            <i class="fa fa-chevron-down arrow"></i>
+                        </div>
+                        <div class="skill-content">
+                            <p>I build fully responsive and interactive frontends. From CSS animations to JavaScript logic, I ensure the website looks "Baap Level" on every screen.</p>
+                        </div>
+                    </div>
+
+                    <div class="skill-box" onclick="toggleSkill(this)" data-aos="fade-up" data-aos-delay="100">
+                        <div class="skill-header">
+                            <h3><i class="fab fa-python"></i> Python Automation</h3>
+                            <i class="fa fa-chevron-down arrow"></i>
+                        </div>
+                        <div class="skill-content">
+                            <p>Writing scripts to automate boring tasks. Expert in data handling and logic building for backend processes.</p>
+                        </div>
+                    </div>
+
+                    <div class="skill-box" onclick="toggleSkill(this)" data-aos="fade-up" data-aos-delay="200">
+                        <div class="skill-header">
+                            <h3><i class="fa fa-palette"></i> UI/UX Design</h3>
+                            <i class="fa fa-chevron-down arrow"></i>
+                        </div>
+                        <div class="skill-content">
+                            <p>Specialized in Dark Themes and Neon-styled interfaces. Every element is placed with precision for the best user experience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact section" id="contact">
+            <div class="container">
+                <h2 style="font-family: 'Orbitron'; font-size: 40px; text-align: center; margin-bottom: 50px;">LET'S <span style="color: var(--skin-color);">TALK</span></h2>
+                <div class="contact-grid">
+                    <div class="contact-card" data-aos="flip-left">
+                        <i class="fa fa-phone"></i>
+                        <h4>Call Now</h4>
+                        <p>Available 24/7 for projects</p>
+                        <a href="tel:031333772232" class="contact-link">Call 031333772232</a>
+                    </div>
+                    <div class="contact-card" data-aos="flip-left" data-aos-delay="100">
+                        <i class="fab fa-whatsapp"></i>
+                        <h4>WhatsApp</h4>
+                        <p>Fastest way to reach me</p>
+                        <a href="https://wa.me/9231333772232" class="contact-link">Chat on WA</a>
+                    </div>
+                    <div class="contact-card" data-aos="flip-left" data-aos-delay="200">
+                        <i class="fa fa-envelope"></i>
+                        <h4>Email Me</h4>
+                        <p>Official inquiries only</p>
+                        <a href="mailto:a21166945@gmail.com" class="contact-link">Send Email</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="switcher">
+        <div class="s-icon" onclick="document.querySelector('.switcher').classList.toggle('open')">
+            <i class="fa fa-cog fa-spin"></i>
+        </div>
+        <h4>Themes</h4>
+        <div class="color-list">
             <span style="background: #ec1839;" onclick="setTheme('#ec1839')"></span>
             <span style="background: #2196f3;" onclick="setTheme('#2196f3')"></span>
-            <span style="background: #ff9800;" onclick="setTheme('#ff9800')"></span>
             <span style="background: #4caf50;" onclick="setTheme('#4caf50')"></span>
-            <span style="background: #e91e63;" onclick="setTheme('#e91e63')"></span>
+            <span style="background: #ff9800;" onclick="setTheme('#ff9800')"></span>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // AOS Animation
-        AOS.init({ duration: 1200 });
+        AOS.init({ duration: 1000 });
 
-        // Typing Effect (Writing-Deleting-Writing)
-        var typed = new Typed(".typing", {
-            strings: ["Web Developer", "Python Pro", "UI/UX Designer", "Freelancer", "9th Student"],
-            typeSpeed: 100,
-            backSpeed: 60,
-            loop: true
+        // Typing Effect
+        new Typed(".typing", {
+            strings: ["Ultra Developer", "9th Grade Prodigy", "Python Scripting Expert", "UI/UX Elite"],
+            typeSpeed: 80, backSpeed: 40, loop: true
         });
 
-        // Live Style Switcher
-        const styleToggler = document.querySelector(".style-toggler");
-        styleToggler.addEventListener("click", () => {
-            document.querySelector(".style-switcher").classList.toggle("open");
-        });
-
-        function setTheme(color) {
-            document.documentElement.style.setProperty('--skin-color', color);
-            // Dynamic shadow update
-            document.querySelector('.home-img .img-box').style.borderColor = color;
+        // Toggle Skill Accordion
+        function toggleSkill(element) {
+            document.querySelectorAll('.skill-box').forEach(box => {
+                if(box !== element) box.classList.remove('active');
+            });
+            element.classList.toggle('active');
         }
 
-        // Active Navigation Highlight
-        const navLinks = document.querySelectorAll(".nav li a");
-        navLinks.forEach(link => {
-            link.addEventListener("click", function() {
-                navLinks.forEach(item => item.classList.remove("active"));
-                this.classList.add("active");
+        // Theme Change
+        function setTheme(color) {
+            document.documentElement.style.setProperty('--skin-color', color);
+        }
+
+        // STAR BACKGROUND ANIMATION
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function initStars() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = [];
+            for(let i=0; i<150; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2,
+                    speed: Math.random() * 0.5
+                });
+            }
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#fff';
+            stars.forEach(s => {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+                ctx.fill();
+                s.y += s.speed;
+                if(s.y > canvas.height) s.y = 0;
             });
-        });
+            requestAnimationFrame(drawStars);
+        }
+        window.addEventListener('resize', initStars);
+        initStars(); drawStars();
     </script>
 </body>
 </html>
