@@ -3,266 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdul Rehman | Elite Dev</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Abdul Rehman | Professional Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- CSS STYLES --- */
         :root {
-            --neon-red: #ff003c;
-            --dark-bg: #0d0d0d;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.1);
+            --bg-black-900: #f2f2fc;
+            --bg-black-100: #fdf9ff;
+            --bg-black-50: #e8dfec;
+            --text-black-900: #302e4d;
+            --text-black-700: #504e70;
+            --skin-color: #ec1839; /* Default Color */
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--dark-bg); color: white; overflow-x: hidden; }
-
-        /* --- Custom Animated Background (Moving Stars/Dots) --- */
-        #particles-js {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--dark-bg);
-            background-image: url('');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: 50% 50%;
-            z-index: -2;
+        body.dark {
+            --bg-black-900: #151515;
+            --bg-black-100: #222222;
+            --bg-black-50: #393939;
+            --text-black-900: #ffffff;
+            --text-black-700: #e9e9e9;
         }
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(0,0,0,0.8) 100%);
-            z-index: -1; pointer-events: none;
-        }
-
-        /* --- Navbar & Custom Logo --- */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 8%; background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(15px); position: fixed; width: 100%; z-index: 1000;
-            border-bottom: 2px solid var(--neon-red);
-        }
-        .nav-logo { 
-            font-family: 'Orbitron', sans-serif; font-size: 1.6rem; 
-            color: var(--neon-red); text-shadow: 0 0 10px var(--neon-red);
-            display: flex; align-items: center; gap: 8px;
-        }
-        .nav-logo i { font-size: 1.3rem; } /* Call icon ke liye */
+        * { margin: 0; padding: 0; outline: none; text-decoration: none; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { line-height: 1.5; font-size: 16px; background-color: var(--bg-black-900); color: var(--text-black-900); transition: all 0.3s ease; }
         
-        nav ul { display: flex; list-style: none; gap: 30px; }
-        nav ul li a { 
-            text-decoration: none; color: #fff; font-weight: 600; 
-            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
-        }
-        nav ul li a:hover { color: var(--neon-red); text-shadow: 0 0 15px var(--neon-red); }
-
-        /* --- Sections --- */
-        section { min-height: 100vh; padding: 120px 10%; display: flex; flex-direction: column; justify-content: center; }
-
-        /* --- Home Section - Hero Content --- */
-        #home { flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; }
-        .hero-content h1 { font-size: 4rem; font-family: 'Orbitron'; margin-bottom: 10px; }
-        .hero-content .name-highlight { color: var(--neon-red); text-shadow: 0 0 20px var(--neon-red); }
-        .hero-content p { font-size: 1.1rem; color: #aaa; max-width: 550px; margin-bottom: 30px; }
-
-        /* Lets Begin Button */
-        .btn-begin {
-            display: inline-flex; align-items: center; gap: 10px;
-            padding: 15px 35px; border-radius: 50px; text-decoration: none;
-            background: linear-gradient(45deg, var(--neon-red), #ff668a);
-            color: white; font-weight: bold; font-size: 1.1rem;
-            box-shadow: 0 8px 20px rgba(255, 0, 60, 0.3); transition: 0.3s ease;
-        }
-        .btn-begin:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(255, 0, 60, 0.4); }
-
-        /* --- Image Styling --- */
-        .profile-frame {
-            width: 380px; height: 380px;
-            background: linear-gradient(45deg, var(--neon-red), var(--secondary)); /* Dual color border */
-            border-radius: 50%; padding: 5px;
-            box-shadow: 0 0 40px rgba(255, 0, 60, 0.5);
-            animation: pulse-border 2s infinite alternate; /* Border animate hoga */
-            display: flex; align-items: center; justify-content: center;
-        }
-        .profile-frame img {
-            width: 100%; height: 100%;
-            border-radius: 50%; object-fit: cover;
-            object-position: center; /* Image center mein ayegi */
-        }
-        @keyframes pulse-border {
-            from { box-shadow: 0 0 40px rgba(255, 0, 60, 0.5); }
-            to { box-shadow: 0 0 60px rgba(0, 242, 255, 0.5); }
-        }
-
-        /* --- Skills Grid --- */
-        .skills-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px; margin-top: 50px;
-        }
-        .skill-card {
-            background: var(--glass); padding: 40px; border-radius: 20px;
-            border: 1px solid var(--border); text-align: center;
-            transition: 0.4s; backdrop-filter: blur(10px);
-        }
-        .skill-card:hover { 
-            transform: translateY(-10px); border-color: var(--neon-red);
-            box-shadow: 0 15px 30px rgba(255, 0, 60, 0.2);
-        }
-        .skill-card i { font-size: 3rem; color: var(--neon-red); margin-bottom: 20px; }
-        .skill-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .skill-card p { color: #ccc; }
-
-        /* --- Contact Section --- */
-        #contact { text-align: center; }
-        .contact-card {
-            background: var(--glass); max-width: 700px; margin: 40px auto;
-            padding: 50px; border-radius: 25px; border: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-        }
-        .contact-card h2 { color: var(--neon-red); font-size: 2rem; margin-bottom: 20px; }
-        .contact-card p { font-size: 1.1rem; color: #ccc; margin-bottom: 30px; }
+        /* Main Container */
+        .main-container { padding-left: 270px; }
         
-        .contact-buttons { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-        .contact-btn {
-            display: inline-flex; align-items: center; gap: 12px;
-            padding: 15px 30px; border-radius: 50px; text-decoration: none;
-            font-weight: bold; font-size: 1.1rem; transition: 0.3s ease;
-        }
-        .contact-btn.whatsapp { background: #25D366; color: white; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); }
-        .contact-btn.call { background: var(--neon-red); color: white; box-shadow: 0 8px 20px rgba(255, 0, 60, 0.3); }
-        .contact-btn:hover { transform: translateY(-5px); opacity: 0.9; }
+        /* Aside / Sidebar */
+        .aside { width: 270px; background: var(--bg-black-100); position: fixed; left: 0; top: 0; height: 100%; border-right: 1px solid var(--bg-black-50); padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; }
+        .aside .logo a { font-size: 30px; font-weight: 700; color: var(--text-black-900); letter-spacing: 5px; position: relative; }
+        .aside .logo a span { font-family: 'Clicker Script', cursive; font-size: 40px; color: var(--skin-color); }
+        .aside .nav { margin-top: 50px; list-style: none; }
+        .aside .nav li { margin-bottom: 20px; }
+        .aside .nav li a { font-size: 16px; font-weight: 600; color: var(--text-black-700); border-bottom: 1px solid var(--bg-black-50); display: block; padding: 5px 15px; transition: 0.3s; }
+        .aside .nav li a:hover, .aside .nav li a.active { color: var(--skin-color); }
+        .aside .nav li a i { margin-right: 15px; }
 
-        /* --- Footer --- */
-        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); color: #888; font-size: 0.9rem; }
+        /* Section Global */
+        .section { background: var(--bg-black-900); min-height: 100vh; display: block; padding: 0 30px; opacity: 1; }
+        .container { max-width: 1100px; width: 100%; margin: auto; }
+        .row { display: flex; flex-wrap: wrap; }
+        .section-title { flex: 0 0 100%; max-width: 100%; margin-bottom: 60px; }
+        .section-title h2 { font-size: 40px; color: var(--text-black-900); font-weight: 700; position: relative; }
+        .section-title h2::before { content: ''; height: 4px; width: 50px; background-color: var(--skin-color); position: absolute; top: 100%; left: 0; }
 
-        /* --- Responsive Design --- */
-        @media (max-width: 900px) {
-            #home { flex-direction: column-reverse; text-align: center; }
-            .hero-content h1 { font-size: 3rem; }
-            .profile-frame { width: 280px; height: 280px; }
-            nav { padding: 15px 5%; }
-            nav ul { gap: 15px; }
-            nav ul li a { font-size: 12px; }
-        }
+        /* Home Section */
+        .home { min-height: 100vh; display: flex; color: var(--text-black-900); }
+        .home-info { flex: 0 0 60%; max-width: 60%; }
+        .home-img { flex: 0 0 40%; max-width: 40%; text-align: center; position: relative; }
+        .home-img img { height: 400px; width: 400px; border-radius: 5px; border: 8px solid var(--bg-black-100); object-fit: cover; }
+        
+        .hello { font-size: 28px; margin: 15px 0; }
+        .hello span { font-family: 'Clicker Script', cursive; font-size: 30px; font-weight: 700; color: var(--skin-color); }
+        .my-profession { font-size: 30px; margin: 15px 0; }
+        .typing { color: var(--skin-color); }
+        .home-info p { margin-bottom: 40px; font-size: 18px; color: var(--text-black-700); }
+        .btn { padding: 12px 35px; background: var(--skin-color); color: #fff; border-radius: 40px; font-weight: 500; transition: 0.3s; border: none; cursor: pointer; }
+        .btn:hover { transform: scale(1.05); }
+
+        /* Style Switcher */
+        .style-switcher { position: fixed; right: 0; top: 60px; padding: 15px; width: 200px; background: var(--bg-black-100); border: 1px solid var(--bg-black-50); transform: translateX(100%); transition: all 0.3s ease; z-index: 101; border-radius: 5px; }
+        .style-switcher.open { transform: translateX(-25px); }
+        .style-switcher .s-icon { position: absolute; height: 40px; width: 40px; text-align: center; font-size: 20px; background: var(--bg-black-100); color: var(--text-black-900); right: 100%; margin-right: 25px; cursor: pointer; border: 1px solid var(--bg-black-50); display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .style-switcher .colors { display: flex; flex-wrap: wrap; justify-content: space-between; }
+        .style-switcher .colors span { display: inline-block; height: 30px; width: 30px; border-radius: 50%; cursor: pointer; margin-top: 10px; }
+        .color-1 { background: #ec1839; } .color-2 { background: #fa5b0f; } .color-3 { background: #37b182; } .color-4 { background: #1854b4; } .color-5 { background: #f021b2; }
+
+        @media (max-width: 1199px) { .aside { left: -270px; } .main-container { padding-left: 0; } }
     </style>
 </head>
 <body>
 
-    <div id="particles-js"></div> <div class="overlay"></div>
-
-    <nav>
-        <a href="tel:+923133772232" class="nav-logo">
-            <i class="fas fa-phone-alt"></i> github.io
-        </a>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#contact">Contact</a></li>
+    <div class="aside">
+        <div class="logo">
+            <a href="tel:031333772232"><span>github</span>.io</a>
+        </div>
+        <ul class="nav">
+            <li><a href="#home" class="active"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
+            <li><a href="#services"><i class="fa fa-list"></i> Services</a></li>
+            <li><a href="#contact"><i class="fa fa-comments"></i> Contact</a></li>
         </ul>
-    </nav>
+    </div>
 
-    <section id="home">
-        <div class="hero-content" data-aos="fade-right">
-            <h1>I AM <br><span class="name-highlight">ABDUL REHMAN</span></h1>
-            <p>A 9th Grade Developer based in Hyderabad, specializing in cutting-edge web development and Python automation.</p>
-            
-            <a href="#contact" class="btn-begin" data-aos="fade-up" data-aos-delay="400">
-                Let's Begin <i class="fas fa-arrow-right"></i>
-            </a>
+    <div class="main-container">
+        <section class="home section" id="home">
+            <div class="container">
+                <div class="row">
+                    <div class="home-info pad-15">
+                        <h3 class="hello">Hello, my name is <span class="name">Abdul Rehman</span></h3>
+                        <h3 class="my-profession">I' m a <span class="typing">Web Developer</span></h3>
+                        <p>I am a passionate 9th-grade developer from Hyderabad. I build high-quality websites and explore the world of Python and AI.</p>
+                        <a href="tel:031333772232" class="btn">Call Me Now</a>
+                    </div>
+                    <div class="home-img pad-15">
+                        <img src="DP.jpg" alt="Abdul Rehman">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about section" id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="section-title">
+                        <h2>About Me</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="about-content pad-15">
+                        <div class="row">
+                            <div class="about-text">
+                                <h3>I'm Abdul Rehman and <span>Web Developer</span></h3>
+                                <p>I started my coding journey in 9th grade. My goal is to become an elite software engineer. I love creating interactive user interfaces like the one you see here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact section" id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="section-title">
+                        <h2>Contact Me</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="contact-info-item pad-15">
+                        <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                        <h4>WhatsApp</h4>
+                        <p><a href="https://wa.me/9231333772232" style="color: inherit;">0313 33772232</a></p>
+                    </div>
+                    <div class="contact-info-item pad-15">
+                        <div class="icon"><i class="fa fa-envelope"></i></div>
+                        <h4>Email</h4>
+                        <p>a21166945@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="style-switcher">
+        <div class="s-icon day-night"><i class="fas"></i></div>
+        <div class="s-icon style-toggler"><i class="fas fa-cog fa-spin"></i></div>
+        <h4>Theme Colors</h4>
+        <div class="colors">
+            <span class="color-1" onclick="setActiveStyle('#ec1839')"></span>
+            <span class="color-2" onclick="setActiveStyle('#fa5b0f')"></span>
+            <span class="color-3" onclick="setActiveStyle('#37b182')"></span>
+            <span class="color-4" onclick="setActiveStyle('#1854b4')"></span>
+            <span class="color-5" onclick="setActiveStyle('#f021b2')"></span>
         </div>
+    </div>
 
-        <div class="profile-frame" data-aos="zoom-in-left">
-            <img src="DP.jpg" alt="Abdul Rehman">
-        </div>
-    </section>
-
-    <section id="skills">
-        <h2 style="font-family: 'Orbitron'; text-align: center; font-size: 2.8rem; margin-bottom: 50px;" data-aos="fade-up">MY <span style="color: var(--neon-red);">SKILLS</span></h2>
-        <div class="skills-grid">
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
-                <i class="fas fa-laptop-code"></i>
-                <h3>Web Development</h3>
-                <p>Building responsive and dynamic websites using HTML, CSS, JavaScript.</p>
-            </div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
-                <i class="fab fa-python"></i>
-                <h3>Python Programming</h3>
-                <p>Developing automation scripts, data analysis tools, and backend logic.</p>
-            </div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
-                <i class="fas fa-palette"></i>
-                <h3>UI/UX Design</h3>
-                <p>Crafting intuitive and engaging user interfaces with modern design principles.</p>
-            </div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
-                <i class="fas fa-database"></i>
-                <h3>Database Management</h3>
-                <p>Working with SQL databases for efficient data storage and retrieval.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2 style="font-family: 'Orbitron'; text-align: center; font-size: 2.8rem;" data-aos="fade-up">GET IN <span style="color: var(--neon-red);">TOUCH</span></h2>
-        <div class="contact-card" data-aos="zoom-in">
-            <h2>Let's Create Something Amazing!</h2>
-            <p>I am always excited to work on new projects. Feel free to reach out to me for collaborations or inquiries.</p>
-            <div class="contact-buttons">
-                <a href="https://wa.me/923133772232" class="contact-btn whatsapp">
-                    <i class="fab fa-whatsapp"></i> WhatsApp Me
-                </a>
-                <a href="tel:+923133772232" class="contact-btn call">
-                    <i class="fas fa-phone-alt"></i> Call Now
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Abdul Rehman | ELITE DEV | Designed with Passion in Hyderabad</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
     <script>
-        AOS.init({ duration: 1000, once: true }); // AOS sirf ek bar trigger hoga
+        // Theme Color Switcher
+        function setActiveStyle(color) {
+            document.documentElement.style.setProperty('--skin-color', color);
+        }
 
-        // --- Particles.js Initialization (Moving Animation) ---
-        particlesJS("particles-js", {
-          "particles": {
-            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#ff003c" }, /* Red color particles */
-            "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
-            "opacity": { "value": 0.5, "random": false, "anim": { "enable": false } },
-            "size": { "value": 3, "random": true, "anim": { "enable": false } },
-            "line_linked": {
-              "enable": true, "distance": 150, "color": "#00f2ff", /* Blue lines */
-              "opacity": 0.4, "width": 1
-            },
-            "move": {
-              "enable": true, "speed": 2, "direction": "none", "random": false,
-              "straight": false, "out_mode": "out", "bounce": false,
-              "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 }
+        const styleToggler = document.querySelector(".style-toggler");
+        styleToggler.addEventListener("click", () => {
+            document.querySelector(".style-switcher").classList.toggle("open");
+        })
+
+        // Day/Night Switcher
+        const dayNight = document.querySelector(".day-night");
+        dayNight.addEventListener("click", () => {
+            dayNight.querySelector("i").classList.toggle("fa-sun");
+            dayNight.querySelector("i").classList.toggle("fa-moon");
+            document.body.classList.toggle("dark");
+        })
+
+        window.addEventListener("load", () => {
+            if(document.body.classList.contains("dark")) {
+                dayNight.querySelector("i").classList.add("fa-sun");
+            } else {
+                dayNight.querySelector("i").classList.add("fa-moon");
             }
-          },
-          "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-              "onhover": { "enable": true, "mode": "grab" }, /* Mouse par grab */
-              "onclick": { "enable": true, "mode": "push" }, /* Click par particles push */
-              "resize": true
-            },
-            "modes": {
-              "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
-              "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 },
-              "repulse": { "distance": 200, "duration": 0.4 },
-              "push": { "particles_nb": 4 },
-              "remove": { "particles_nb": 2 }
-            }
-          },
-          "retina_detect": true
-        });
+        })
     </script>
 </body>
 </html>
